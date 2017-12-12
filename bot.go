@@ -3,17 +3,17 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"github.com/ChimeraCoder/anaconda"
 	"log"
 	"net/url"
 	"os"
-	"github.com/ChimeraCoder/anaconda"
 )
 
 type TwitterConfig struct {
-	ConsumerKey			string 	`json:"ConsumerKey"`
-	ConsumerSecret		string 	`json:"ConsumerSecret"`
-	AccessToken			string 	`json:"AccessToken"`
-	AccessTokenSecret	string 	`json:"AccessTokenSecret"`
+	ConsumerKey       string `json:"ConsumerKey"`
+	ConsumerSecret    string `json:"ConsumerSecret"`
+	AccessToken       string `json:"AccessToken"`
+	AccessTokenSecret string `json:"AccessTokenSecret"`
 }
 
 var api *anaconda.TwitterApi
@@ -29,7 +29,7 @@ func main() {
 	queryPtr := flag.String("q", "none", "Flag to specify twitter query.")
 	actionPtr := flag.String("a", "none", "Flag to specify twitter action.")
 	countPtr := flag.String("c", "0", "Flag to specify count of query items.")
-	flag.Parse();
+	flag.Parse()
 
 	encodedQuery := url.QueryEscape(*queryPtr)
 	switch *actionPtr {
@@ -44,7 +44,7 @@ func main() {
 
 // Favorite all tweets for matching query.
 func favorite(query string, count string) {
-	searchResult, err := api.GetSearch(query, url.Values {"count": []string {count} })
+	searchResult, err := api.GetSearch(query, url.Values{"count": []string{count}})
 	if err != nil {
 		log.Println("Error querying search API.", err)
 	}
@@ -61,7 +61,7 @@ func favorite(query string, count string) {
 
 // Re-tweet all tweets for matching query.
 func retweet(query string, count string) {
-	searchResult, err := api.GetSearch(query, url.Values {"count": []string {count} })
+	searchResult, err := api.GetSearch(query, url.Values{"count": []string{count}})
 	if err != nil {
 		log.Println("Error querying search API.", err)
 	}
@@ -77,8 +77,8 @@ func retweet(query string, count string) {
 }
 
 // Follow users for matching query.
-func follow (query string, count string) {
-	searchResult, err := api.GetSearch(query, url.Values {"count": []string{count} })
+func follow(query string, count string) {
+	searchResult, err := api.GetSearch(query, url.Values{"count": []string{count}})
 	if err != nil {
 		log.Println("Error querying search API.", err)
 	}
